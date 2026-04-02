@@ -1,5 +1,19 @@
 Canva Presentation: https://www.canva.com/design/DAHE5nYCVW4/w35BTvQQElzJXFgqHTMa7Q/edit
 Github Repository: https://github.com/samia-boubaya/rncp-project
+
+
+
+------------------------------------------------------------------------------------------
+Identifiant de document|Reference document|1 Articles CGI|2 Articles CGI|3 Articles CGI|4 Articles CGI|5 Articles CGI|No disposition|Date mutation|Nature mutation|Valeur fonciere|No voie|B/T/Q|Type de voie|Code voie|Voie|Code postal|Commune|Code departement|Code commune|Prefixe de section|Section|No plan|No Volume|1er lot|Surface Carrez du 1er lot|2eme lot|Surface Carrez du 2eme lot|3eme lot|Surface Carrez du 3eme lot|4eme lot|Surface Carrez du 4eme lot|5eme lot|Surface Carrez du 5eme lot|Nombre de lots|Code type local|Type local|Identifiant local|Surface reelle bati|Nombre pieces principales|Nature culture|Nature culture speciale|Surface terrain
+|||||||000001|01/07/2020|Vente|31234,16||||B064|SAINT JULIEN|1560|SAINT-JULIEN-SUR-REYSSOUZE|01|367||A|8||||||||||||0||||||AB||1192
+|||||||000001|01/07/2020|Vente|278000,00||||B188|A LA PEROUSE|1250|CORVEISSIAT|01|125||C|509||||||||||||0||||||BS||10092
+|||||||000001|01/07/2020|Vente|278000,00||||B188|A LA PEROUSE|1250|CORVEISSIAT|01|125||C|510||||||||||||0||||||L||4570
+|||||||000001|01/07/2020|Vente|278000,00||||B079|AUX COMMUNS|1250|CORVEISSIAT|01|125||ZL|96||||||||||||0||||||BS||5750
+|||||||000001|01/07/2020|Vente|278000,00||||B033|EN COMBARNAUD|1250|SIMANDRE-SUR-SURAN|01|408||A|14||||||||||||0||||||BT||648170
+|||||||000001|01/07/2020|Vente|278000,00||||B033|EN COMBARNAUD|1250|SIMANDRE-SUR-SURAN|01|408||A|14||||||||||||0||||||BT||150000
+|||||||000001|01/07/2020|Vente|278000,00||||B093|A LANSIAT|1250|SIMANDRE-SUR-SURAN|01|408||A|112||||||||||||0||||||P||1763
+|||||||000001|01/07/2020|Vente|278000,00||||B111|MOULIN DE CORRERIE|1250|SIMANDRE-SUR-SURAN|01|408||A|114||||||||||||0||||||BT||108
+|||||||000001|01/07/2020|Vente|278000,00||||B037|COMBE BIZET|1250|SIMANDRE-SUR-SURAN|01|408||B|134||||||||||||0||||||BT||124420
 ------------------------------------------------------------------------------------------
 To do:
 - get data validated by sabina
