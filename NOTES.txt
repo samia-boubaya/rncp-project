@@ -1,3 +1,57 @@
+Canva Presentation: https://www.canva.com/design/DAHE5nYCVW4/w35BTvQQElzJXFgqHTMa7Q/edit
+Github Repository: https://github.com/samia-boubaya/rncp-project
+------------------------------------------------------------------------------------------
+To do:
+- get data validated by sabina
+- standardize "Numéro d’arrondissement INSEE"	
+in df_communes & df_arrondissements
+- 
+
+
+Identifiant de document
+Reference document
+
+------------------------------------------------------------------------------------------
+Property Investment Predictor & Recommendation System
+
+Ironhack project deadline (31st March)
+- data cleaning
+- data analysis univariate analysis + CORRELATION matrix
+- presentation filling with plots
+- ML models results
+- ML selection
+- Streamlit app
+- input a budget and it will direct you to where and what to buy best for profit.
+- API amenities
+- Web Scraping from Seloger.com for available logement to purchase and rank them
+
+------------------------------------------------------------------------------------------
+- Price trends
+- Price per m²
+- Location analysis
+- Type-specific stats (apartment vs house)
+------------------------------------------------------------------------------------------
+- Date mutation (date)
+- Valeur fonciere (price)
+- Commune (??)
+- Code postal (75014)
+- Code departement (75)
+- Type local (type of logement)
+- Surface reelle bati (m²)
+- Nombre pieces principales (# pieces)
+- Surface terrain
+------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 --------------------------------------------------------------------------
 METADATA
 --------------------------------------------------------------------------
