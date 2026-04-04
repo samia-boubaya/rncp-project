@@ -1,9 +1,21 @@
+
+
 # Data Dictionary
 
-Une dépendance désigne un local non habitable, séparé du logement principal : cave, garage, abri de jardin, etc
+French Properties Dataset
+=================================================================================================================
 
+Description
+-----------------------------------------------------------------------------------------------------------------
+This dataset contains properties data from FR websites (links).
+Each row represents a unique property purchase.
 
-# Column names from the header
+=================================================================================================================
+Definitions 
+- Une dépendance désigne un local non habitable, séparé du logement principal : cave, garage, abri de jardin, etc
+- 
+
+# Column names from raw flatfile
 columns = ["Identifiant de document","Reference document","1 Articles CGI","2 Articles CGI",
            "3 Articles CGI","4 Articles CGI","5 Articles CGI","No disposition","Date mutation",
            "Nature mutation","Valeur fonciere","No voie","B/T/Q","Type de voie","Code voie",

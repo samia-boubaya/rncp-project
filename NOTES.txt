@@ -58,6 +58,68 @@ Ironhack project deadline (31st March)
 
 
 
+```text
+DATA COLLECTION Steps:
+
+1) Data Browsing & Downloading - using data sources:
+- https://opendata.paris.fr/pages/home/
+- https://data.iledefrance.fr/pages/home-open-data/
+
+//Data Validation (sabina validating dataset)
+
+2) Data Exploration (understand data and take notes)
+    
+    a) Data Selection
+    - DVF (2020-S2 to 2025-S1) 6 large files in the format of .txt
+    - arrondissements.csv
+    - communes.csv
+    - Amentities Tool https://overpass-turbo.eu/
+    - Rent data in/outside Paris APIs https://www.observatoire-des-loyers.fr/
+
+    b) Data Transformation & Saving
+    - DVF 6 TXT files merged  into 1 CSV with selected columns:
+    - arrondissements.csv file with seelected columns:
+    - communes.csv file with selected columns:
+
+    c) Notes for Data cleaning, Analysis, ML
+
+
+    
+
+Type:
+- Appartement
+- Dépendance
+- Maison
+- Local industriel, commercial ou assimilé
+
+
+Price: euros
+
+Price/square meter: euros/m2
+
+Commune: Name (String)
+
+Code postale: ##### example 75014 (5 digits)
+- Appartement; Dépendance; Maison; Local industriel, commercial ou assimilé
+
+
+
+----------------------------------
+
+plot: linear
+variables: type + price +/- surface m2
+- 5 years trends (2020 - 2025)
+- seasonal trends (jan, feb...)
+
+plot: bars
+variables: type + price ranges
+- price ranges heatmap
+
+plot
+
+
+
+
 
 
 
