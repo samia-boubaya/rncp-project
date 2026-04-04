@@ -14,6 +14,18 @@ Identifiant de document|Reference document|1 Articles CGI|2 Articles CGI|3 Artic
 |||||||000001|01/07/2020|Vente|278000,00||||B093|A LANSIAT|1250|SIMANDRE-SUR-SURAN|01|408||A|112||||||||||||0||||||P||1763
 |||||||000001|01/07/2020|Vente|278000,00||||B111|MOULIN DE CORRERIE|1250|SIMANDRE-SUR-SURAN|01|408||A|114||||||||||||0||||||BT||108
 |||||||000001|01/07/2020|Vente|278000,00||||B037|COMBE BIZET|1250|SIMANDRE-SUR-SURAN|01|408||B|134||||||||||||0||||||BT||124420
+
+
+------------------------------------------------------------------------------------------
+
+In the DVF dataset, the B/T/Q column is a shorthand for additional address details that help locate the exact property within a street number. Specifically:
+
+B → Bâtiment (Building)
+T → Type (Type of sub-division, e.g., a unit, lot, or wing)
+Q → Quartier (Neighborhood, section, or specific block)
+
+It is used together with No voie (street number), Voie (street name), and sometimes Code voie to precisely identify the property, especially in large buildings, complexes, or multi-lot sites.
+
 ------------------------------------------------------------------------------------------
 To do:
 - get data validated by sabina
