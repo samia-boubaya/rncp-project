@@ -32,7 +32,8 @@ To do:
 - standardize "Numéro d’arrondissement INSEE"	
 in df_communes & df_arrondissements
 - 
-
+Nombre pieces principales is NaN in the examples. Only relevant for houses/apartments.
+Could fill NaN with 0 for terrains or ignore if building type is non-built.
 
 Identifiant de document
 Reference document

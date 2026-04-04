@@ -13,7 +13,7 @@ Each row represents a unique property purchase.
 =================================================================================================================
 Definitions 
 - Une dépendance désigne un local non habitable, séparé du logement principal : cave, garage, abri de jardin, etc
-- 
+- La date de mutation est le jour de la date de signature de l'acte notarié. C'est une donnée essentielle car les prix d'un même bien vendu en 2004 et 2014 ne sont pas comparables.
 
 # Column names from raw flatfile
 columns = ["Identifiant de document","Reference document","1 Articles CGI","2 Articles CGI",
