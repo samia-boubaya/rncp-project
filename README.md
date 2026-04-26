@@ -253,17 +253,18 @@ For this regression problem, we use the following metrics:
 - **Mean Absolute Error (MAE),**
 - **Root Mean Squared Error (RMSE).**
 
-![Regression Evaluation Metrics](../../images/Regression_problem_EVALUATION_METRICS.png)
+![Regression Evaluation Metrics](images/Regression_problem_EVALUATION_METRICS.png)
 
-![Models Results Comparison](../../images/Regression_problem_EVALUATION_METRICS.png)
+Let's compare the models results:
+![Models Results Comparison](images/Regression_problem_EVALUATION_METRICS.png)
 
 
 ### Deployment
         - After comparing models results, evaluate and select the best model to be used for deploying our app.
 
----
-IMAGE
----
+
+
+![Demo Predict Price](images/demo-predict-price.png)
 
 ## Limitations
         - Almost half the dataset has an "Unknown" property type
