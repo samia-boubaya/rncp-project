@@ -35,10 +35,11 @@ To answer these questions, we used:
 To assess, predict and recommend what and where to invest in French real-estate properties for best ROI based on a given budget so even small investors can start investing more in France. 
 
 To **assess, predict and recommend the best real estate investments in France**, we input:
-        - Budget  (gauge)
-        - Location  (map)
-        - Property characteristics  (text input)
-
+```text
+- Budget  (moving gauge)
+- Location  (Geo map)
+- Property characteristics (text input)
+```
 
 ## ⚙️ Installation (requirements.txt)
 ```bash
@@ -73,15 +74,15 @@ This dataset contains real-estate transactions across France between 2020 2nd Se
 ### Flat files: DVF 2020-S2 to 2025-S1
 6 Text files of **Demande Valeurs Foncieres** concatinated into one large file CSV file
 
-TXT files:
-
-        - ValeursFoncieres_2020-S2
-        - ValeursFoncieres_2021
-        - ValeursFoncieres_2022
-        - ValeursFoncieres_2023
-        - ValeursFoncieres_2024
-        - ValeursFoncieres_2025-S1
-
+**TXT files:**
+```text
+- ValeursFoncieres_2020-S2
+- ValeursFoncieres_2021
+- ValeursFoncieres_2022
+- ValeursFoncieres_2023
+- ValeursFoncieres_2024
+- ValeursFoncieres_2025-S1
+```
 ### API: Geospatial for rental prices by location in France
 
 ### WEB SCRAPING: SeLoger.com (real-time property listings for recommendations)
@@ -144,81 +145,84 @@ This repository structure contains the EDA where each notebook is a key step.
 **0. DATA COLLECTION & EXPLORATION**
 
 **1. DATA CLEANING**
-
-        1.1. CREATE new unique TRANSACTION ID 
-        1.2. CONCAT files and convert into 1 CSV
-        1.3. STANDARDIZE column names
-        1.4. Deal with INVALID VALUES
-        1.5. CONVERT dtypes
-        1.6. Deal with NULLS
-        1.7. Deal with DUPLICATES: removed true duplicate rows and only kept first occurence with non duplicate rows from the dataset.
-        1.8. Deal with OUTLIERS
-        1.9. SAVE CLEAN FILE
-
+```text
+1.1. CREATE new unique TRANSACTION ID 
+1.2. CONCAT files and convert into 1 CSV
+1.3. STANDARDIZE column names
+1.4. Deal with INVALID VALUES
+1.5. CONVERT dtypes
+1.6. Deal with NULLS
+1.7. Deal with DUPLICATES: removed true duplicate rows and only kept first occurence with non duplicate rows from the dataset.
+1.8. Deal with OUTLIERS
+1.9. SAVE CLEAN FILE
+```
 **2. WEB SCRAPING (SeLoger.com)**
 
 **3. DATA ANALYSIS & HYPOTHESIS TESTING**
 
 
 ## Machine Learning (ML)
-STEPS :
+**ML KEY STEPS:**
+```text
+1. DATA PREPROCESSING
+2. MODELS EVALUATION
+3. DEPLOYMENT
+```
 
-        1. DATA PREPROCESSING
-        2. MODELS EVALUATION
-        3. DEPLOYMENT
-
-### ML Problem Type
+### ML PROBLEM TYPE
 It's a REGRESSION PROBLEM.
 
 ### DATA REVISION
 Since the dataset is large, it may be difficult to use it whole for Machine Learning.
 
-### TARGET & FEATURES
+### **TARGET & FEATURES**
 #### **THE TARGET** (**Valeur foncière** == `property_value`) : 
-
-        - It's the transaction amount in EUROS. 
-        - This amount does not include notary fees and agency fees because it ultimately corresponds to the value of the property in a transaction whether it was a sale or exchange. 
-        - This amount is inclusive of VAT.
-
+```text
+- It's the transaction amount in EUROS. 
+- This amount does not include notary fees and agency fees because it ultimately corresponds to the value of the property in a transaction whether it was a sale or exchange. 
+- This amount is inclusive of VAT.
+```
 #### **FEATURES** (`Property characteristics`)
 These are the selected features:
 
 **CATEGORICAL Features:**
-
-        - `transaction_year`: 
-                - 2020, 2021, 2022, 2023, 2024, 2025
+```text
+- `transaction_year`: 
+        - 2020, 2021, 2022, 2023, 2024, 2025
         
-        - `transaction_month`: 
-                - JAN, FEB, MAR, APR, MAY, JUN, JUL AUG, SEP, OCT, NOV, DEC
+- `transaction_month`: 
+        - JAN, FEB, MAR, APR, MAY, JUN, JUL AUG, SEP, OCT, NOV, DEC
         
-        - `transaction_type`:
+- `transaction_type`:
 
-                - Sale in future state of completion
-                - Sale of unbuilt land
-                - Sale
-                - Expropriation
-                - Auction
-                - Exchange
+        - Sale in future state of completion
+        - Sale of unbuilt land
+        - Sale
+        - Expropriation
+        - Auction
+        - Exchange
 
-        - `property_type`: 
-                - House
-                - Apartment
-                - Industrial or commercial premises
-                - Outbuilding
-                - Unknown
+- `property_type`: 
+        - House
+        - Apartment
+        - Industrial or commercial premises
+        - Outbuilding
+        - Unknown
 
-        - `surface_type`: 
-                - building
-                - land
-                - combined
-                - Unknown
-        - longitude
-        - latitude
-        - 
+- `surface_type`: 
+        - building
+        - land
+        - combined
+        - Unknown
+
+- 
+ ```
  **NUMERIC Features:**
-        -
-        -
-
+```text
+- property_surface
+- `longitude`
+- `latitude`
+```
 ### Data Preparation for Machine Learning
 Since we handled invalid values, missing values, duplicates, and outliers in the EDA step data cleaning
 We only need to focus on preprocessing for the sake of Machine Learning and created a new CSV file `ML_ValeursFoncieres.csv`
@@ -227,13 +231,14 @@ We only need to focus on preprocessing for the sake of Machine Learning and crea
         - Label missing categorical data
 
 ### Data Preprocessing
-        1. Drop Columns 
-                - with mostly null values
-                - with ID and future information
-        2. Split data to Train/Test sets
-        3. Feature Engineering & Feature Scaling
-        4. Derive New Features
-
+```text
+1. Drop Columns 
+        - with mostly null values
+        - with ID and future information
+2. Split data to Train/Test sets
+3. Feature Engineering & Feature Scaling
+4. Derive New Features
+```
 
 ### Models Results Evaluation
 After training different models, record their results in a Google Sheet for later to rank
@@ -260,29 +265,40 @@ Let's compare the models results:
 
 
 ### Deployment
-        - After comparing models results, evaluate and select the best model to be used for deploying our app.
-
+```text
+After comparing models results, we select the best model and use it for deploying our app.
+```
 
 
 ![Demo Predict Price](images/demo-predict-price.png)
 
 ## Limitations
-        - Almost half the dataset has an "Unknown" property type
+```text
+- Almost half the dataset has an "Unknown" property type
+- 
+- 
+```
 
 ## Conclusions
-        - Best property types to invest in is:
-        - Best locations to invest in are:
-
+```text
+- Best property types to invest in is:
+- Best locations to invest in are:
+```
 ## Future Improvements
-        - Dataset preprocessing must be improved further to produce better result.
-        - Using only the top best important features with algorithm can improve model performance
-        - To webscrape from different sources such as agencies
-        - API Transport for distance calculation
-        - API Amenities for granular assessment of Property Neighbourhood value 
-
+```text
+- Dataset preprocessing must be improved further to produce better result.
+- Using only the top best important features with algorithm can improve model performance
+- To webscrape from different sources such as agencies
+- API Transport for distance calculation
+- API Amenities for granular assessment of Property Neighbourhood value 
+```
 
 ## Author
-        Mme BOUBAYA Samia
+```text
+Mme BOUBAYA Samia
+```
 
 ## Version Control & Date 
-        Version 01: April 2026
+```text
+Version 01: April 2026
+```
