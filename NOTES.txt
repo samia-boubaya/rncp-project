@@ -1,335 +1,69 @@
-Canva Presentation: https://www.canva.com/design/DAHE5nYCVW4/w35BTvQQElzJXFgqHTMa7Q/edit
-Github Repository: https://github.com/samia-boubaya/rncp-project
-
-
-# --------------------------------------------------------------------------------
-add columns
-	//insee_code = DDCCC or DDDCC (metropolean or outer-mer)
+--------------------------------------------------------------------------------
+# add derived columns	
+	// already added: surface_type = either "building" or "land" or "combined"	
+	insee_code = DDCCC or DDDCC (metropolean or outer-mer)
 	com_type using COM_DEP_2026.csv
-	property_surface = sum of the two types of surfaces
-	value_per_m2 = property_value/surface
-	
-	// already added: surface_type = either "Building" or "Land"
-	
-	latitude 
+	dep_name using COM_DEP_2026.csv
+	property_surface : sum of the two types of surfaces
+	value_per_m2 = property_value/property_surface
 	longitude
-
-
-
-Sample values: ['Outbuilding', 'House', 'Industrial or commercial premises', 'Apartment']
-
-
-Call file: ML_ValeursFoncieres.csv	
-
-
-# --------------------------------------------------------------------------------
-Valeurs Foncieres CLEANING STEPS:
-ValeursFoncieres 6 TXT files
-to 1 CSV:
-
-	CONCAT_
-	DROP_
-	STANDARD_
-	INVALIDS_
-	TYPES_
-	NULLS_
-	DUPLICATES_
-	OUTLIERS_
-	CLEAN_
-
-
-# --------------------------------------------------------------------------------
-# NULLS HANDLING
-# --------------------------------------------------------------------------------
-# Column: property_value (euros)
-# --------------------------------------------------------------------------------
-# drop nulls in property_value column as it's a critical column for analysis
-df = df.dropna(subset=["property_value"])
-
-# --------------------------------------------------------------------------------
-# Column: street_number
-# --------------------------------------------------------------------------------
-# nulls in street_number are common and not necessarily invalid
-# Fill NaN with "Unknown" for now
-df["street_number"] = df["street_number"].fillna("Unknown")
-
-# --------------------------------------------------------------------------------
-# Column: building_real_surface
-# --------------------------------------------------------------------------------
-# Fill NaN with 0
-df["building_real_surface"] = df["building_real_surface"].fillna(0)
-
-# --------------------------------------------------------------------------------
-# Column: main_rooms_count
-# --------------------------------------------------------------------------------
-# main_rooms_count is only relevant for houses/apartments
-# fill NaN with 0 when property_type is land
-df["main_rooms_count"] = df.apply(lambda row: 0 if pd.isna(row["main_rooms_count"]) and row["property_type"] == "land" else row["main_rooms_count"], axis=1)
-
-# --------------------------------------------------------------------------------
-# Column: land_surface
-# --------------------------------------------------------------------------------
-# Fill NaN with 0 if building_real_surface is not null
-df["land_surface"] = df.apply(lambda row: 0 if pd.isna(row["land_surface"]) and not pd.isna(row["building_real_surface"]) else row["land_surface"], axis=1)
-
-# --------------------------------------------------------------------------------
-# Column: property_type
-# --------------------------------------------------------------------------------
-# Fill NaN with "Unknown" to keep all rows for analysis, 
-# as property_type is important for analysis and we don't want to drop rows with missing property_type
-df["property_type"] = df["property_type"].fillna("Unknown")
-
-# --------------------------------------------------------------------------------
-# Column: btq_code
-# --------------------------------------------------------------------------------
-df["btq_code"] = df["btq_code"].fillna("Unknown")
-
-# --------------------------------------------------------------------------------
-# Column: street_name
-# --------------------------------------------------------------------------------
-df["street_name"] = df["street_name"].fillna("Unknown")
-
-# --------------------------------------------------------------------------------
-# Column: postal_code
-# --------------------------------------------------------------------------------
-df["postal_code"] = df["postal_code"].fillna("Unknown")
-
-# --------------------------------------------------------------------------------
-# Save dataset in a new CSV file
-# --------------------------------------------------------------------------------
-df.to_csv("../data/processed/NULLS_ValeursFoncieres.csv", index=False)
-print(f"✅ Dataset with null values handled and saved at ../data/processed/NULLS_ValeursFoncieres.csv")    
+	latitude 
+	location_type (rural vs suburb)
 ------------------------------------------------------------------------------------------
-Identifiant de document|Reference document|1 Articles CGI|2 Articles CGI|3 Articles CGI|4 Articles CGI|5 Articles CGI|No disposition|Date mutation|Nature mutation|Valeur fonciere|No voie|B/T/Q|Type de voie|Code voie|Voie|Code postal|Commune|Code departement|Code commune|Prefixe de section|Section|No plan|No Volume|1er lot|Surface Carrez du 1er lot|2eme lot|Surface Carrez du 2eme lot|3eme lot|Surface Carrez du 3eme lot|4eme lot|Surface Carrez du 4eme lot|5eme lot|Surface Carrez du 5eme lot|Nombre de lots|Code type local|Type local|Identifiant local|Surface reelle bati|Nombre pieces principales|Nature culture|Nature culture speciale|Surface terrain
-|||||||000001|01/07/2020|Vente|31234,16||||B064|SAINT JULIEN|1560|SAINT-JULIEN-SUR-REYSSOUZE|01|367||A|8||||||||||||0||||||AB||1192
-|||||||000001|01/07/2020|Vente|278000,00||||B188|A LA PEROUSE|1250|CORVEISSIAT|01|125||C|509||||||||||||0||||||BS||10092
-|||||||000001|01/07/2020|Vente|278000,00||||B188|A LA PEROUSE|1250|CORVEISSIAT|01|125||C|510||||||||||||0||||||L||4570
-|||||||000001|01/07/2020|Vente|278000,00||||B079|AUX COMMUNS|1250|CORVEISSIAT|01|125||ZL|96||||||||||||0||||||BS||5750
-|||||||000001|01/07/2020|Vente|278000,00||||B033|EN COMBARNAUD|1250|SIMANDRE-SUR-SURAN|01|408||A|14||||||||||||0||||||BT||648170
-|||||||000001|01/07/2020|Vente|278000,00||||B033|EN COMBARNAUD|1250|SIMANDRE-SUR-SURAN|01|408||A|14||||||||||||0||||||BT||150000
-|||||||000001|01/07/2020|Vente|278000,00||||B093|A LANSIAT|1250|SIMANDRE-SUR-SURAN|01|408||A|112||||||||||||0||||||P||1763
-|||||||000001|01/07/2020|Vente|278000,00||||B111|MOULIN DE CORRERIE|1250|SIMANDRE-SUR-SURAN|01|408||A|114||||||||||||0||||||BT||108
-|||||||000001|01/07/2020|Vente|278000,00||||B037|COMBE BIZET|1250|SIMANDRE-SUR-SURAN|01|408||B|134||||||||||||0||||||BT||124420
-
-
+Nombre pieces principales is only relevant for houses/apartments.
 ------------------------------------------------------------------------------------------
+# ERD
+- create a transaction_id in each file CSV before concat
+(1 transaction → N rows)
+yyyy-mm-dd - insee_code (address) - transaction_type - property_value - property_type
 
-In the DVF dataset, the B/T/Q column is a shorthand for additional address details that help locate the exact property within a street number. Specifically:
 
-B → Bâtiment (Building)
-T → Type (Type of sub-division, e.g., a unit, lot, or wing)
-Q → Quartier (Neighborhood, section, or specific block)
+- ValeursFoncieres from 6 TXT files to 1 CSV:
+	CONCAT_ (CSV files with correct ID)
+	DROP_ (useless columns)
+	STANDARD_ (rename)
+	INVALIDS_ (deal with invalid values)
+	TYPES_ (convert)
+	NULLS_ (deal with nulls)
+		- drop columns with null property_value and null surfaces (real_building_surface and land_surface)
+		- fill nulls with 0 for numeric
+		- fill nulls with "Unknown" for categorical
 
-It is used together with No voie (street number), Voie (street name), and sometimes Code voie to precisely identify the property, especially in large buildings, complexes, or multi-lot sites.
 
+	DUPLICATES_ (deal with duplicates)
+		- drop true duplicates? or use advanced deduplicating method using transaction or deeper level?
+
+	OUTLIERS_ (deal with outliers)
+		- detect outliers 
+			- box plots
+			- scatter plots
+			- IQR technique
+		- handle outliers
+
+	CLEAN_ (save a copy of clean to be used for Analysis and ML preprocessing)
+
+
+- data analysis 
+	- univariate analysis
+	- CORRELATION matrix
+	
+	- Value trends
+	- Value per m² vs other columns
+	- Location analysis Region, Department, Commune, Arrondissements
+	- Type-specific stats (apartment vs house, surface type, rural vs suburb)
 ------------------------------------------------------------------------------------------
-To do:
-- get data validated by sabina
-- standardize "Numéro d’arrondissement INSEE"	
-in df_communes & df_arrondissements
-- 
-Nombre pieces principales is NaN in the examples. Only relevant for houses/apartments.
-Could fill NaN with 0 for terrains or ignore if building type is non-built.
-
-Identifiant de document
-Reference document
-
+## ML
+- data preprocessing
+- machine learning
+- app (flask for frontend) : 
+	- input Location or using MAP 
+	- input budget gauge
+	- input property_type
 ------------------------------------------------------------------------------------------
-Property Investment Predictor & Recommendation System
+## EXTRA
+- API for Rental prices in similar locations to estimate how much u can rent the property for
+- Web Scrape for Real property listings: Seloger.com (ranking them)
 
-Ironhack project deadline (31st March)
-- data cleaning
-- data analysis univariate analysis + CORRELATION matrix
-- presentation filling with plots
-- ML models results
-- ML selection
-- Streamlit app
-- input a budget and it will direct you to where and what to buy best for profit.
-- API amenities
-- Web Scraping from Seloger.com for available logement to purchase and rank them
-
+- API for calculating distance from another location with transport en commun 
+- API for showing amenities
 ------------------------------------------------------------------------------------------
-- Price trends
-- Price per m²
-- Location analysis
-- Type-specific stats (apartment vs house)
-------------------------------------------------------------------------------------------
-- Date mutation (date)
-- Valeur fonciere (price)
-- Commune (??)
-- Code postal (75014)
-- Code departement (75)
-- Type local (type of logement)
-- Surface reelle bati (m²)
-- Nombre pieces principales (# pieces)
-- Surface terrain
-------------------------------------------------------------------------------------------
-
-
-
-```text
-DATA COLLECTION Steps:
-
-1) Data Browsing & Downloading - using data sources:
-- https://opendata.paris.fr/pages/home/
-- https://data.iledefrance.fr/pages/home-open-data/
-
-//Data Validation (sabina validating dataset)
-
-2) Data Exploration (understand data and take notes)
-    
-    a) Data Selection
-    - DVF (2020-S2 to 2025-S1) 6 large files in the format of .txt
-    - arrondissements.csv
-    - communes.csv
-    - Amentities Tool https://overpass-turbo.eu/
-    - Rent data in/outside Paris APIs https://www.observatoire-des-loyers.fr/
-
-    b) Data Transformation & Saving
-    - DVF 6 TXT files merged  into 1 CSV with selected columns:
-    - arrondissements.csv file with seelected columns:
-    - communes.csv file with selected columns:
-
-    c) Notes for Data cleaning, Analysis, ML
-
-
-    
-
-Type:
-- Appartement
-- Dépendance
-- Maison
-- Local industriel, commercial ou assimilé
-
-
-Price: euros
-
-Price/square meter: euros/m2
-
-Commune: Name (String)
-
-Code postale: ##### example 75014 (5 digits)
-- Appartement; Dépendance; Maison; Local industriel, commercial ou assimilé
-
-
-
-----------------------------------
-
-plot: linear
-variables: type + price +/- surface m2
-- 5 years trends (2020 - 2025)
-- seasonal trends (jan, feb...)
-
-plot: bars
-variables: type + price ranges
-- price ranges heatmap
-
-plot
-
-
-
-
-
-
-------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------
-['01' nan '02' '03' '04' '05' '06' '07' '08' '09' '10' '11' '12' '13' '14'
- '15' '16' '17' '18' '19' '21' '22' '23' '24' '25' '26' '27' '28' '29'
- '2A' '2B' '30' '31' '32' '33' '34' '35' '36' '37' '38' '39' '40' '41'
- '42' '43' '44' '45' '46' '47' '48' '49' '50' '51' '52' '53' '54' '55'
- '56' '57' '58' '59' '60' '61' '62' '63' '64' '65' '66' '67' '68' '69'
- '70' '71' '72' '73' '74' '75' '76' '77' '78' '79' '80' '81' '82' '83'
- '84' '85' '86' '87' '88' '89' '90' '91' '92' '93' '94' '95' '971' '972' '973' '974' '976']
-
-#### ADAPT MY MAIN DATASET
-COLUMN: dep_code:
-- nan in "dep_code."Is it the missing code '96'?
-- incosistent values in 
-
-from: '97#' and '98#' in my df (main dataset)
-to: '971' '972' '973' '974' '976'
-
-USE commun COLUMN: "com_name" between df and df_com_dep dataframes:
-- add "insee_code", "dep_code", "dep_name","com_type" from df_com_dep
-- and if there is no match fix the names that aren't consistent in df
-
-// fix invalid values
-- other columns FIXED
-- com_name in df
-- dep_code in df_com_dep
-- add from df_com_dep  to df the columns 
-	- insee_code
-	- com_type
-	- dep_code
-	- dep_name
-
-// convert type
-- street_number to object
-- main_rooms_count to int
-
-// deal with nulls
-- fill nulls with 'Unknown' & '0' or drop
-- generate calculated value_per_m2
-	- property_value/(sum surfaces)
-
-// deal with duplicates
-- create transaction_id
-
-// deal with outliers
-- assess if there are any outliers
-- drop those transactions rows
-
-
-------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------
-
----- FINAL VALEURS FONCIERES CSV TABLE ------------------------
- //   Column                 Dtype  
----  ------                 -----  
-// generate
--1   transaction_id         object (gotta generate it somehow)
-// clean
- 0   transaction_date       object 
- 1   transaction_type       object 
- 2   property_value         float64 
- 3   street_number          object
- 4   btq_code               object  
- 5   street_name            object  
- 6   postal_code            object  
- 7   com_name               object  
- 8   number_of_lots         int64   
- 9   property_type          object  
- 10  building_real_surface  float64 
- 11  main_rooms_count       int64
-
-// add 
- 12  insee_code             object
- 13  com_type               object 
- 14  dep_code               object
- 15  dep_name          	    object
-// calculate  
-16  value_per_m2           object
-
-
-------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------
-METADATA
---------------------------------------------------------------------------
-../data/ 
-contains CSV and JSON files (raw, processed) plus metadata .txt
-
-../data/raw/ 
-contains 
-- external_data.csv , (flat file csv downloaded) 
-- scraped_data.csv , 
-- api json files
-
-../data/processed/
-contains csv files that went through modification from the raw folder 
---------------------------------------------------------------------------
-install using git Bash: 
-pip install -r requirements.txt
---------------------------------------------------------------------------
