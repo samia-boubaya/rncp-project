@@ -13,10 +13,10 @@ This project introduces a **data-driven application** that helps investors:
 Real Estate Investors in France would like to know what and where to buy for best ROI.
 
 ## ❓ Key Questions
-- Which property to purchase? Which property characteristics?
+- Which property to purchase? What characteristics?
 - Where to invest?  
-- When to purhcase?
-- What is the expected rental value?  
+- When is it best to purchase?
+- What is the market rental value for this property (estimated)?  
 - Want to maximize ROI with a specific budget?
 - Which properties to avoid?
 - Want real-time property listings recommendations?  
@@ -139,7 +139,9 @@ HERE add images of:
 | 41 | *(derived)*                    | `insee_code`          | insee_code is either DDCCC (mainland) or DDDCC (overseas)       | Float64         | Derived categorical           |
 | 42 | *(derived)*                    | `transaction_year`          | The year the transaction was made (for ML)       | int         | Derived categorical           |
 | 43 | *(derived)*                    | `transaction_month`          | The month the transaction was made (for ML)       | string         | Derived categorical           |
-## Exploratory data analysis (EDA)
+
+
+## Exploratory Data Analysis (EDA)
 This repository structure contains the EDA where each notebook is a key step.
 
 **0. DATA COLLECTION & EXPLORATION**
