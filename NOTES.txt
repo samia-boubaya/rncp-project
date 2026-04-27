@@ -8,7 +8,7 @@
 	value_per_m2 = property_value/property_surface
 	longitude
 	latitude 
-	location_type (rural vs suburb)
+	property_nature_ (rural vs suburb)
 ------------------------------------------------------------------------------------------
 Nombre pieces principales is only relevant for houses/apartments.
 ------------------------------------------------------------------------------------------
@@ -59,6 +59,41 @@ yyyy-mm-dd - insee_code (address) - transaction_type - property_value - property
 	- input Location or using MAP 
 	- input budget gauge
 	- input property_type
+-----------------------------------------------------------
+📅 Date: April 30, 2026 ⏰ Time: 12h
+# Submit:
+	- Report.pdf
+	- Presentation.pptx
+	- Github Repository link
+-----------------------------------------------------------
+📅 Date: April 30, 2026 ⏰ Time: 18h00
+# Present the project to a jury
+💻 Format: Online (Google Meet)
+🌐 Language: English
+⏱ Presentation including Q&A: 40 minutes
+-----------------------------------------------------------
+0. UniqueID_      → create a better transaction_id
+1. CONCAT_        → merge raw files
+2. STANDARD_      → rename columns
+3. DROP_          → remove useless columns
+4. INVALIDS_      → fix incorrect values
+5. TYPES_         → convert dtypes
+6. NULLS_         → handle missing values
+7. DUPLICATES_    → remove duplicates
+8. OUTLIERS_      → treat extreme values
+9. CLEAN_         → save final dataset
+-----------------------------------------------------------
+ANALYSIS_         → EDA / transformations
+add new columns
+- value_per_m2
+-----------------------------------------------------------
+ML_               → model preprocessing (no leakage)
+drop columns IDs, Names, Future info
+feature importance and selection
+
+Models: LightGBM / CatBoost > Random Forest > Linear Regression > Baseline
+
+
 ------------------------------------------------------------------------------------------
 ## EXTRA
 - API for Rental prices in similar locations to estimate how much u can rent the property for
@@ -66,4 +101,4 @@ yyyy-mm-dd - insee_code (address) - transaction_type - property_value - property
 
 - API for calculating distance from another location with transport en commun 
 - API for showing amenities
-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------

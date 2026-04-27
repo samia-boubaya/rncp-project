@@ -124,23 +124,31 @@ Engineered feature indicating whether the property includes built area only, lan
 36. <b>(Derived) → `effective_surface`:</b>  
 Computed total surface equal to built surface plus land surface, used for normalization.
 
-37. <b>(Derived) → `value_per_m2`:</b>  
+37. <b>(Derived for ANALYSIS) → `value_per_m2`:</b>  
 Price per square meter calculated as property value divided by effective surface.
 
-38. <b>(Derived) → `longitude`:</b>  
+<b>(Derived) → longitude:</b>
 Geographic longitude coordinate obtained through geocoding.
 
-39. <b>(Derived) → `latitude`:</b>  
+<b>(Derived) → latitude:</b>
 Geographic latitude coordinate obtained through geocoding.
 
-40. <b>(Derived) → `com_type`:</b>  
+<b>(Derived) → com_type:</b>
 Classification of the commune based on density or urbanization level (e.g., urban, suburban, rural).
 
-41. <b>(Derived) → `insee_code`:</b>  
+<b>(Derived) → insee_code:</b>
 Official geographic identifier combining department and commune codes (DDCCC for mainland France, DDDCC for overseas).
+
+<b>(Derived for ML) → transaction_year:</b>
+Year extracted from the transaction date, used for temporal modeling.
+
+<b>(Derived for ML) → transaction_month:</b>
+Month extracted from the transaction date, used for seasonality analysis and modeling.
+
+
 ...
 
-## DATA TABLE
+### DATA TABLE
 | #  | Original Name           | Standard Name            | Description                                       | Data Type      | Variable Type                          |
 | -- | ------------------------------ | ----------------------- | ------------------------------------------------- | -------------- | ----------------------------- |
 | 0  | (derived after seeing that **No disposition** is unreliable)             | `transaction_id`        | Unique identifier of the transaction              | string         | Categorical / identifier      |
@@ -179,12 +187,14 @@ Official geographic identifier combining department and commune codes (DDCCC for
 | 33 | **Nature culture speciale**    | `land_nature_special`   | Specific type of land usage                       | string         | Categorical                   |
 | 34 | **Surface terrain**            | `land_surface`          | Land area in square meters                        | Float64        | Numeric                       |
 | 35 | *(derived)*                    | `surface_type`          | Type of surface: building / land / combined       | string         | Derived categorical           |
-| 36 | *(derived)*                    | `effective_surface`          | sum of the surfaces (building and land)       | Float64         | Derived numeric           |
-| 37 | *(derived)*                    | `value_per_m2`          | value devided by effective_surface        | Float64         | Derived numeric           |
+| 36 | *(derived)*                    | `property_surface`          | sum of the surfaces (building and land)       | Float64         | Derived numeric           |
+| 37 | *(derived for ANALYSIS)*                    | `value_per_m2`          | value devided by effective_surface        | Float64         | Derived numeric           |
 | 38 | *(derived)*                    | `longitude`          | longitude of property       | Float64         | Derived numeric           |
 | 39 | *(derived)*                    | `latitude`          | Latitude of property       | Float64         | Derived numeric           |
 | 40 | *(derived)*                    | `com_type`          | Commune type       | string         | Derived categorical           |
-| 41 | *(derived)*                    | `insee_code`          | insee_code is either DDCCC (mainland) or DDDCC (overseas)       | Float64         | Derived categorical           |
+| 41 | *(derived)*                    | `insee_code`          | insee_code is either DDCCC (mainland) or DDDCC (overseas)       | Int64         | Derived categorical           |
+| 42 | *(derived for ML)*                    | `transaction_year`          | The year the transaction was made (for ML)       | int         | Derived categorical           |
+| 43 | *(derived for ML)*                    | `transaction_month`          | The month the transaction was made (for ML)       | string         | Derived categorical           |
 
 
 ## Additional explanation
@@ -193,8 +203,9 @@ Official geographic identifier combining department and commune codes (DDCCC for
 
 - The `transaction_date` corresponds to the date when the notarial deed is signed. This is a crucial variable, as property prices are not directly comparable across different time periods (e.g., the same property sold in 2020 vs 2025).
 
-- **What is the difference between land_surface and property_surface?**  
-In simple terms, *surface* refers to a flat area (in m²), while *property_surface* refers to the total surface combining both `building_real_surface` and `land_surface`. In this dataset, **land_surface** represents the area of the land (specifically when `surface_type = 'land'`), whereas **building_real_surface** refers to the floor space inside a totally or partially built property. 
+- **What is the difference between real_building_surface, land_surface, and property_surface?**  
+In simple terms, *surface* refers to a flat area (in m²), while *property_surface* refers to the total surface combining both `building_real_surface` and `land_surface`. 
+In this dataset, **land_surface** represents the area of the land (specifically when `surface_type = 'land'`), whereas **building_real_surface** refers to the floor space inside a totally or partially built property (`surface_type = 'building'`). 
 
 - In the DVF dataset, the **B/T/Q** column is a shorthand for additional address details that help locate the exact property within a given street number:
 
@@ -206,6 +217,7 @@ In simple terms, *surface* refers to a flat area (in m²), while *property_surfa
 
 - `main_rooms_count` only applies to properties with a `building_real_surface` greater than 0.
 
+Here are some categorical features values for a better understanding:
 
 - `transaction_type`:
     - Sale in future state of completion
