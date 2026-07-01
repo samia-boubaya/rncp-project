@@ -59,21 +59,10 @@ yyyy-mm-dd - insee_code (address) - transaction_type - property_value - property
 	- input Location or using MAP 
 	- input budget gauge
 	- input property_type
------------------------------------------------------------
-📅 Date: April 30, 2026 ⏰ Time: 12h
-# Submit:
-	- Report.pdf
-	- Presentation.pptx
-	- Github Repository link
------------------------------------------------------------
-📅 Date: April 30, 2026 ⏰ Time: 18h00
-# Present the project to a jury
-💻 Format: Online (Google Meet)
-🌐 Language: English
-⏱ Presentation including Q&A: 40 minutes
------------------------------------------------------------
-0. UniqueID_      → create a better transaction_id
-1. CONCAT_        → merge raw files
+------------------------------------------------------------------------------------------
+CSV FILES & STEPS:
+0. ID_      	  → create transaction_id in each file
+1. CONCAT_        → create a better transaction_id + merge files
 2. STANDARD_      → rename columns
 3. DROP_          → remove useless columns
 4. INVALIDS_      → fix incorrect values
@@ -93,12 +82,7 @@ feature importance and selection
 
 Models: LightGBM / CatBoost > Random Forest > Linear Regression > Baseline
 
-
 ------------------------------------------------------------------------------------------
-## EXTRA
+## API & Web Scraping
 - API for Rental prices in similar locations to estimate how much u can rent the property for
 - Web Scrape for Real property listings: Seloger.com (ranking them)
-
-- API for calculating distance from another location with transport en commun 
-- API for showing amenities
------------------------------------------------------------------------------------------------------------------------------------------------------
